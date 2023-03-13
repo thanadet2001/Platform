@@ -12,6 +12,7 @@ Step 4	If Error go to floder config and open files Config.js
                 database: 'Platform',
                 host: 'your localhost',
                 dialect: 'mysql',
+                port:'3306',
                 },
         and save files
         called cmd use " npm start " again
