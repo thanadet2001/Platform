@@ -9,6 +9,7 @@ const config = require('./Config');
       {
         host: config.production.host,
         dialect: config.production.dialect,
+        port:config.production.port,
       }
     );
     this.testConnection();
