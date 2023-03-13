@@ -1,0 +1,36 @@
+extends Layout.pug
+
+block content
+    section(class="container py-1")
+    div(class="row d-flex justify-content-center")
+        div(class="col-md-4 justify-content-center")
+          div(class="col-sm-12 shadow-lg p-4 bg-light")
+              div(class="text-center")
+                  h3(class="text-dark") สมัครสมาชิก
+                    form(action="/SignUp", method="POST")
+                      div(class="p-4")
+                        div(class="input-group mb-3")
+                            span(class="input-group-text bg-dark")
+                                i(class="bi bi-person-plus-fill text-white")
+                            input(type="text" class="form-control" name="username" placeholder="ชื่อบัญชีผู้ใช้" required=true maxlength=30)
+                        div(class="input-group mb-3")
+                            span(class="input-group-text bg-dark")
+                                i(class="bi bi-envelope-fill text-white")
+                            input(type="email" class="form-control" name="email" placeholder="อีเมล" required=true maxlength=100)
+                        div(class="input-group mb-3")
+                            span(class="input-group-text bg-dark")
+                                i(class="bi bi-key-fill text-white")
+                            input(type="password" class="form-control" name="password" placeholder="รหัสผ่าน" maxlength=12 minlength=6 title="ใส่รหัสผ่านอย่างน้อย6ตัว" required=true)
+                            span(class="input-group-text bg-dark")
+                                i(class="bi bi-key-fill text-white")
+                            input(type="password" class="form-control" name="rePassword" placeholder="รหัสผ่านอีกครั้ง" maxlength=12 minlength=6 title="ใส่รหัสผ่านอย่างน้อย6ตัว" required=true)
+                        button(class="btn btn-dark text-center mt-2" type="submit") สมัครสมาชิก
+                        br
+                        if checkOutNoti
+                            if (signUpError != '')
+                                div(class="alert alert-danger py-3" role="alert")=signUpError
+                            else
+                                div(class="alert alert-danger py-3" role="alert")=checkOutNoti
+                        else
+                            if (signUpError != '')
+                                div(class="alert alert-danger py-3" role="alert")=signUpError

@@ -1,0 +1,31 @@
+extends Layout.pug
+
+block content
+  .container-fluid.bg-light.py-5
+    .col-md-6.m-auto.text-center
+      h3 ติดต่อเรา
+      p
+        ="ที่อยู่ : "+SetWeb.WebAddress
+      p
+        a.nav-link(class="text-decoration-none" href="tel:+66"+SetWeb.WebTel)="เบอร์โทร : "+SetWeb.WebTel
+      p 
+        a.nav-link(class="text-decoration-none" href="mailto:"+SetWeb.WebEmail)="อีเมล : "+SetWeb.WebEmail
+      h3 ติดต่อเราผ่านโซเชียลมีเดีย
+      p.text-light
+        each SocialMedia in Social
+          if SocialMedia.SocialMediaId==1 && SocialMedia.SrcSocialMeida !=''&& SocialMedia.SrcSocialMeida  !=null
+              li(class="list-inline-item border border-light rounded-circle text-center")
+                  a.nav-link(class="text-decoration-none" target="_blank" href="http://facebook.com/"+Social[0].SrcSocialMeida)
+                      i(class="fab fa-facebook-f fa-lg fa-fw")
+          else if SocialMedia.SocialMediaId==2 && SocialMedia.SrcSocialMeida !='' && SocialMedia.SrcSocialMeida  !=null
+              li(class="list-inline-item border border-light rounded-circle text-center")
+                  a.nav-link(class="text-decoration-none" target="_blank" href="https://www.instagram.com/"+Social[1].SrcSocialMeida)
+                      i(class="fab fa-instagram fa-lg fa-fw")
+          else if SocialMedia.SocialMediaId==3 && SocialMedia.SrcSocialMeida !='' && SocialMedia.SrcSocialMeida  !=null
+              li(class="list-inline-item border border-light rounded-circle text-center")
+                  a.nav-link(class="text-decoration-none" target="_blank" href="https://line.me/"+Social[2].SrcSocialMeida)
+                      i(class="fab fa-line fa-lg fa-fw")
+          else if SocialMedia.SocialMediaId==4 && SocialMedia.SrcSocialMeida !='' && SocialMedia.SrcSocialMeida  !=null
+              li(class="list-inline-item border border-light rounded-circle text-center")
+                  a.nav-link(class="text-decoration-none" target="_blank" href="https://www.tiktok.com/"+Social[3].SrcSocialMeida)
+                      i(class="fab fa-tiktok fa-lg fa-fw")

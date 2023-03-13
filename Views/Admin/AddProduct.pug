@@ -1,0 +1,262 @@
+extends Layout.pug
+block navbar
+  li.nav-item
+    a.nav-link(href='/SellerCenter/Home')
+      span.nav-icon
+        svg.bi.bi-house-door(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+            path(fill-rule='evenodd', d='M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z')
+            path(fill-rule='evenodd', d='M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z')                       
+      span.nav-link-text หน้าหลัก
+block NavProduct
+  li.nav-item.has-submenu
+    a.nav-link.submenu-toggle.active(href='#', data-bs-toggle='collapse', data-bs-target='#submenu-1', aria-expanded='false', aria-controls='submenu-1')
+      span.nav-icon
+        svg.bi.bi-folder(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(d='M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z')
+          path(fill-rule='evenodd', d='M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z')                       
+      span.nav-link-text จัดการสินค้า
+      span.submenu-arrow
+        svg.bi.bi-chevron-down(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z')  
+    #submenu-1.collapse.submenu.submenu-1.collapse.show(data-bs-parent='#menu-accordion')
+      ul.submenu-list.list-unstyled
+        li.submenu-item
+          a.submenu-link(href='/SellerCenter/Product') แสดงรายการการสินค้า
+        li.submenu-item
+          form(id="Test" action='/SellerCenter/Product/Add', method='GET' )
+            button.submenu-link.active(type="submit" style="border:none;outline:none;background: none;") เพิ่มสินค้า
+block Orders
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/Orders')
+      span.nav-icon
+        svg.bi.bi-card-list(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z')
+          path(fill-rule='evenodd', d='M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z')
+          circle(cx='3.5', cy='5.5', r='.5')
+          circle(cx='3.5', cy='8', r='.5')
+          circle(cx='3.5', cy='10.5', r='.5')                         
+      span.nav-link-text จัดการคำสั่งซื้อ
+block NavSetwebsite
+  li.nav-item.has-submenu
+    a.nav-link.submenu-toggle(href='#', data-bs-toggle='collapse', data-bs-target='#submenu-2', aria-expanded='false', aria-controls='submenu-2')
+      span.nav-icon
+        svg.bi.bi-columns-gap(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M6 1H1v3h5V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z')                       
+      span.nav-link-text ปรับแต่งเว็บ
+      span.submenu-arrow
+        svg.bi.bi-chevron-down(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z')  
+    #submenu-2.collapse.submenu.submenu-2(data-bs-parent='#menu-accordion')
+      ul.submenu-list.list-unstyled
+        li.submenu-item
+          a.submenu-link(href='/SellerCenter/Setwebsite') เปลี่ยนธีม สีพื้นหลัง ฟอนต์
+        li.submenu-item
+          form(id="Test" action='/SellerCenter/Setwebsite/Settings', method='GET' )
+            button.submenu-link(type="submit" style="border:none;outline:none;background: none;") ตั้งค่าเว็บ ลิงก์เว็บ
+block TotalSale
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/TotalSeller')
+      span.nav-icon
+        svg.bi.bi-bar-chart-line(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z')
+      | &#x9;&#x9;                         
+      span.nav-link-text สรุปยอดขายของสินค้า
+block TotalSale1
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/TotalSell')
+      span.nav-icon
+        svg.bi.bi-bar-chart-line(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z')
+      | &#x9;&#x9;                         
+      span.nav-link-text สรุปยอดขาย
+block Banks
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/Banks')
+      span.nav-icon
+        svg.bi.bi-gear(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z')
+          | &#x9;  
+          path(fill-rule='evenodd', d='M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z')
+      | &#x9;&#x9;&#x9;                        
+      span.nav-link-text จัดการบัญชีธนาคาร
+block Adm
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/Info')
+      span.nav-icon
+        svg.bi.bi-file-person(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z')
+          | &#x9;  
+          path(fill-rule='evenodd', d='M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z')
+      | &#x9;&#x9;&#x9;                        
+      span.nav-link-text ข้อมูลผู้ดูแลระบบ
+
+block content 
+    .app-wrapper
+        .app-content.pt-3.p-md-3.p-lg-4
+            h5.app-page-mb-0 
+                a.nav-item(href="/SellerCenter/Home" )|หน้าหลัก 
+                ="> "
+                a.nav-item(href="/SellerCenter/Product")| จัดการสินค้า
+                =">" 
+                |เพิ่มสินค้า
+            hr
+            form(action='/SellerCenter/Product/Add', method='POST',enctype="multipart/form-data")
+                .row
+                    .col-12.col-md-4
+                    h4.section-title เพิ่มสินค้า
+                    .app-card.app-card-settings.shadow-sm.p-4
+                        .app-card-body
+                            h5.mb-3|ข้อมูลทั่วไป
+                            p="สามารถเลือกอัปโหลดรูปสินค้าหลายภาพได้ภายในครั้งเดียว โดยรูปที่เพิ่มเป็นรูปแรกจะถูกกำหนดให้เป็นรูปที่ 1 จะเป็นรูปหน้าปกของสินค้าของคุณ โดยสามารถลงรูปสินค้าสูงสุดได้ถึง 5 รูป"
+                            p.text-danger รูปภาพของสินค้าหลักกรุณาลงขนาดแบบ 1:1 เท่านั้น มิเช่นนั้นภาพสินค้าจะไม่เท่ากัน และชื่อสินค้าห้ามมีอักขระพิเศษ เช่น " ",'',%#@!เป็นต้น
+                            div(class="file-loading") 
+                                input(id="input-res-1" name="image" type="file" multiple accept="image/png, image/jpeg , image/jpg" required=true) 
+                            //-input#setting-input-1.form-control(type='file' name="image" accept="image/png, image/jpeg , image/jpg" multiple)
+                            
+                            //-div(class="input-group-append")
+                                button(class="btn btn-danger text-center" onclick="Clear()" type="reset") รีเซ็ต
+                            .mb-3
+                            //div(class="preview-images")
+                            label.form-label(for='ProductName')
+                                | ชื่อสินค้า
+                                svg.bi.bi-info-circle(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+                                    path(fill-rule='evenodd', d='M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z')
+                                    path(d='M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z')
+                                    circle(cx='8', cy='4.5', r='1')   
+                            input#setting-input-2.form-control(type='text', name='ProductName', required=true placeholder="Ex iPhone 13 ไอโฟน13" maxlength=255 oninput="limitChar(this)")
+                            p#charCounter="0"
+                                span="/255 ตัวอักษร"
+                            .mb-3-py-3
+                            p.text-danger="** หากยังไม่มีหมวดหมู่กรุณาไปเพิ่มหมวดหมู่ **"
+                            label.form-label(for='Categories') หมวดหมู่สินค้า : 
+                            select.form-control-sm(name="CategoryId" id="Categories" required=true)
+                              option(value="")|---เลือกหมวดหมู่---
+                                -function loop(level) {
+                                  -return function (a) {
+                                      -var i = level
+                                      -var s = ''
+                                      -var j=0
+                                      -var space ='\u00a0'
+                                      -while (i--) {
+                                          -s+='\u00a0'+'\u00a0'
+                                          -j++
+                                      -}
+                                      -if (level) {
+                                          -s +='-'
+                                          -j
+                                      -}
+                                      option(value=a.CategoryId)=s+a.CategoryName
+                                      
+                                      -Array.isArray(a.subCate) && a.subCate.forEach(loop(level + 1));
+                                  -}
+                                -}
+                              -var data = JSON.parse(categoreis)
+                              - data.forEach(loop(0)); 
+                              - var category=JSON.parse(categoreis)
+                            label.form-label(for='Brands') แบรนด์ :  
+                            select.form-control-sm(name="BrandId" id="Brand" required=true)
+                              option(value="")|---เลือกแบรนด์---
+                              each brand in Brands  
+                                option(value=brand.BrandId)=brand.BrandName
+                    hr
+                    .col-12.col-md-4
+                    .app-card.app-card-settings.shadow-sm.p-4
+                        .app-card-body
+                            h5.mb-3|ข้อมูลรายละเอียดสินค้า
+                            label.form-label(for="ProductInfo" ) รายละเอียดสินค้า : 
+                            textarea.form-control(id='ProductInfo' cols="50" rows="5" name='ProductInfo' placeholder='Ex iPhone 13 ระบบกล้องคู่ที่ล้ำหน้าที่สุดเท่าที่เคยมีมาบน iPhone' style="height: 111px;" required=true )
+                    hr
+                    .col-12.col-md-4
+                    .app-card.app-card-settings.shadow-sm.p-4
+                        .app-card-body
+                            h5.mb-3|ข้อมูลจำเพาะสินค้า
+                            label.form-label(for="Price" ) ราคาสินค้า : 
+                            input.form-control-sm(type="number" name="ProductPrice" min="1" max="9999999" placeholder="1 บาทเป็นต้นไป" required=true style="width :150px;")
+                            label.form-label(for="Quantity") จำนวนสินค้า : 
+                            input.form-control-sm(type="number" name="ProductQuantity" min="1" max="9999" placeholder="1 ชิ้นเป็นต้นไป" required=true style="width :150px;")
+                            .mb-3
+                            label.form-label(for="width") กว้าง : 
+                            input.form-control-sm(type="number" name="width" min="1" max="999" placeholder="1 เซนติเมตร"  required=true style="width :150px;")
+                            | cm.
+                            label.form-label(for="height") สูง : 
+                            input.form-control-sm(type="number" name="height" min="1" max="999" placeholder="1 เซนติเมตร" required=true style="width :150px;")
+                            | cm.
+                            label.form-label(for="length") ยาว : 
+                            input.form-control-sm(type="number" name="Length" min="1" max="999" placeholder="1 เซนติเมตร" required=true style="width :150px;")
+                            | cm.
+                            .mb-3
+                            label.form-label(for="weight") น้ำหนักของบรรจุภัณฑ์ (รวมผลิตภัณฑ์) กก : 
+                            input.form-control-sm(type="number" name="Weight" placeholder="0.25 กิโกลกรัม" min="0" max="30" step="0.01" required=true  pattern="^\d*(\.\d{0,2})?$" style="width :150px;")
+                            | kg.
+                    hr
+                    button.btn.app-btn-primary.form-control(type='submit' style="color : white;") เพิ่มสินค้า
+    script(src="http://goanyone.com/js/fileinput.js" type="text/javascript")
+    script.
+        function limitChar(element) {
+            var maxChar = 255;
+        
+            var ele = document.getElementById(element.id);
+            var charLen = ele.value.length;
+        
+            var p = document.getElementById('charCounter');
+            p.innerHTML = charLen + '/255'+' ตัวอักษร';
+        
+            if (charLen > maxChar) 
+            {
+                ele.value = ele.value.substring(0, maxChar);
+                p.innerHTML = 0 + '/255'+' ตัวอักษร'; 
+            }    	
+        }
+        $(document).ready(function() {
+             $("#input-res-1").fileinput({
+                language: "th",
+                enableResumableUpload: true,
+                initialPreviewAsData: true,
+                maxFileCount: 5,
+                theme: 'fa5',
+                showCancel: true,
+                showUpload: false,
+                allowedFileTypes: ['image'],
+                fileActionSettings: {
+                    showZoom: function(config) {
+                        if (config.type === 'image') {
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+                
+            });
+           /* var fileArr = [];
+            let imagesPreview = function(input, placeToInsertImagePreview) {
+            if (input.files) {
+                let filesAmount = input.files.length;
+                if(filesAmount>5){
+                    alert("สามารถลงรูปสินค้าสูงสุดได้ถึง 5 รูปเท่านั้น");
+                    $("#setting-input-1").val('');
+                }
+                else{
+                    for (i = 0; i < filesAmount; i++) {
+                    let reader = new FileReader();
+                    reader.onload = function(event) {
+                        $($.parseHTML("<img>"))
+                        .attr("src", event.target.result)
+                        .attr("height",330) 
+                        .attr("width",330)
+                        .appendTo(placeToInsertImagePreview)
+                    };
+                    
+                    reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            }
+            };
+            $("#setting-input-1").on("change", function() {
+                imagesPreview(this, "div.preview-images");
+            });*/
+        });

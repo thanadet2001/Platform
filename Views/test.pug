@@ -1,0 +1,210 @@
+html(lang="th")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title= title+' | '+SetWeb.WebName
+        //-Load Template 
+        link(rel="icon" href='/Img/Settings/LogoWeb/'+SetWeb.LogoWeb)
+        link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous")
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous")
+
+        link(rel="stylesheet", href="/Css/custom.css")
+        link(rel="stylesheet", href='/Css/Template/'+Theme[0].ThemeColor)
+        link(rel="stylesheet", href="/Css/Font/"+Font[0].FontName)
+        link(rel="stylesheet", href="/Css/Background/"+Background.BgColorName)
+        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css")
+        //-Load font af rendering the layout stylts
+        script(src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous")
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap")
+        link(rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" crossorigin="anonymous")
+        script(src='https://code.jquery.com/jquery-3.6.0.min.js')
+    //-plugin
+    body 
+        //-Top Nav
+        nav(class="navbar navbar-expand-lg bg-dark navbar-light" id="templatemo_nav_top")
+            div(class="container text-light")
+                div(class="w-100 d-flex justify-content-between")
+                    div
+                        a(class="navbar-sm-brand text-light text-decoration-none")
+                            i(class="fa fa-envelope mx-2")
+                        =SetWeb.WebEmail
+                        a(class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com")
+                            i(class="fa fa-phone mx-2")
+                        =SetWeb.WebTel
+                    div(class="d-flex justify-content-between")
+                        - var UserAc="ลงชื่อเข้าใช้/สมัครสมาชิก"
+                        - var link= "/SignIn"
+                        - var Name=""
+                        if customer
+                            -Name="สวัสดี : "
+                            -UserAc=customer.Username+" จัดการโปรไฟล์"
+                            -link="/AccUser/"
+                        a(class="navbar-sm-brand text-light text-decoration-none" href=link)=Name+UserAc+ '\u00a0'+'\u00a0'
+                            i(class="fa fa-fw fa-user mr-3")
+                        if customer
+                            a(class="navbar-sm-brand text-light text-decoration-none" href="/SignOut")='\u00a0'+'\u00a0'+ "ออกจากระบบ"+'\u00a0'+'\u00a0'
+                                i(class="bi bi-box-arrow-right")
+        
+        //-Nav Menu bar
+        if NavMenu[0].NavigationType==="แนวนอน"
+            nav(class="navbar navbar-expand-lg navbar-light shadow")
+                div(class="container d-flex justify-content-between align-items-center")
+                    a(class="navbar-brand text-success logo h1 align-self-center" href="/")
+                        img(src='/Img/Settings/LogoWeb/'+SetWeb.LogoWeb width="75" height="50") 
+                        =SetWeb.WebName
+                    button(class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+                        span(class="navbar-toggler-icon")
+                    div(class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav")
+                        div(class="flex-fill")
+                            ul(class="nav navbar-nav d-flex justify-content-between mx-lg-auto")
+                                li(class="nav-item")
+                                    a(class="nav-link" href="/") หน้าแรก
+                                li(class="nav-item")
+                                    a(class="nav-link" href="/All") สินค้าทั้งหมด
+                                li(class="nav-item")
+                                    a(class="nav-link" href="/About") ติดต่อเรา
+                                li(class="nav-item")
+                                    if customer
+                                        a(class="nav-link" href='/AccUser/' + customer.Username+'/Orders') ติดตามสถานะการสั่งซื้อ
+                                    else 
+                                        a(class="nav-link" href='/SignIn') ติดตามสถานะการสั่งซื้อ
+                                li(class="nav-item")
+                                    a(class="nav-link" href="/")
+                        div(class="d-flex")
+                            a(class="nav-icon position-relative text-light text-decoration-none" href="/SignOut")
+                                i(class="fa fa-sign-out" aria-hidden="false")
+                            a(class="nav-icon position-relative text-decoration-none" href="/Cart")
+                                i(class="fa fa-fw fa-cart-arrow-down mr-1") 
+                                | ตะกร้า
+                                if (summary != null)
+                                    span(class="position-absolute translate-middle badge rounded-pill bg-dark text-success")=summary.totalQuantity
+                                else 
+                                    span(class="position-absolute translate-middle badge rounded-pill bg-dark text-success")
+
+                                
+        if NavMenu[0].NavigationType==="แนวตั้ง"
+            nav(class="navbar navbar-light bg-dark fixed-top")
+                div(class="container text-light")
+                    div(class="w-100 d-flex justify-content-between")
+                    div
+                        a(class="navbar-brand text-light" href="/")
+                            img(src='/Img/Settings/LogoWeb/'+SetWeb.LogoWeb width="50" height="50")
+                            =SetWeb.WebName
+                        a(class="navbar-sm-brand text-light text-decoration-none")
+                            i(class="fa fa-envelope mx-2")
+                            =SetWeb.WebEmail
+                        a(class="navbar-sm-brand text-light text-decoration-none" href="mailto:"+SetWeb.WebEmail)=SetWeb.WebEmail
+                            i(class="fa fa-phone mx-2")
+                            =SetWeb.WebTel
+                    div(class="d-flex justify-content-between ")
+                        - var UserAc="ลงชื่อเข้าใช้/สมัครสมาชิก"
+                        - var link= "/SignIn"
+                        - var Name=""
+                        if customer
+                            -Name="สวัสดี : "
+                            -UserAc=customer.Username
+                            -link="/AccUser/"
+                        a(class="navbar-sm-brand text-light text-decoration-none" href=link)=Name+UserAc+ '\u00a0'+'\u00a0'+ "จัดการโปรไฟล์"+'\u00a0'+'\u00a0'
+                            i(class="fa fa-fw fa-user mr-3")
+                        if customer
+                            a(class="navbar-sm-brand text-light text-decoration-none" href="/SignOut")='\u00a0'+'\u00a0'+ "ออกจากระบบ"+'\u00a0'+'\u00a0'
+                                i(class="bi bi-box-arrow-right")
+                    button(class="navbar-toggler bg-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample")
+                        span(class="navbar-toggler-icon")
+                    div(div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel")
+                        div(class="offcanvas-header")
+                            img(src='/Img/Settings/LogoWeb/'+SetWeb.LogoWeb width="50" height="50")
+                            =SetWeb.WebName
+                            button(type="button" class="btn-close bg-light" data-bs-dismiss="offcanvas" aria-label="Close")
+                        div(class="offcanvas-body" id="templatemo_main_nav")
+                            div(class="flex-fill")
+                                ul(class="nav navbar-nav d-flex justify-content-between mx-lg-auto ")
+                                    li(class="nav-item")
+                                        a(class="nav-link" href="/") หน้าแรก
+                                    li(class="nav-item")
+                                        a(class="nav-link" href="/All") สินค้าทั้งหมด
+                                    li(class="nav-item")
+                                        a(class="nav-link" href="/About") ติดต่อเรา
+                                    li(class="nav-item")
+                                        if customer
+                                            a(class="nav-link" href='/AccUser/' + customer.Username+'/Orders') ติดตามสถานะการสั่งซื้อ
+                                        else 
+                                            a(class="nav-link" href='/SignIn') ติดตามสถานะการสั่งซื้อ
+                                    li
+                                        a(class="nav-icon position-relative text-decoration-none text-success" href="/Cart")
+                                            i(class="fa fa-fw fa-cart-arrow-down mr-1 text-success") 
+                                            | ตะกร้า
+                                            if (summary != null)
+                                                span(class="position-absolute translate-middle badge rounded-pill bg-dark text-success")=summary.totalQuantity
+                                            else 
+                                                span(class="position-absolute translate-middle badge rounded-pill bg-black text-success")="0"
+                    // div(class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel")
+                        div(lass="offcanvas-header")
+                            h5(class="offcanvas-title" id="offcanvasNavbarLabel") Offcanvas
+                                button(type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close")
+                        div(class="offcanvas-body")
+                            ul(class="navbar-nav justify-content-end flex-grow-1 pe-3")
+                                li(class="nav-item")
+                                    a(class="nav-link active" aria-current="page" href="#") Home
+                                li(class="nav-item")
+                                    a(class="nav-link" href="#") Link
+                                li(class="nav-item dropdown")
+                                    a(class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false") Dropdown
+                                ul(class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown")
+                                    li
+                                        a(class="dropdown-item" href="#") action
+                                    li
+                                        a(class="dropdown-item" href="#") Another actionaction
+                                    li
+                                        hr(class="dropdown-divider")
+                                    li
+                                        a(class="dropdown-item" href="#") Something else hereaction
+
+
+        footer(class="bg-dark" id="tempaltemo_footer")
+            div(class="container")
+                div(class="row")
+                    div(class="col-md-4 pt-5")
+                        h2(class="h2 text-success border-bottom pb-3 border-light logo")=SetWeb.WebName
+                        ul(class="list-unstyled text-light footer-link-list")
+                            li
+                                i(class="fas fa-map-marker-alt fa-fw") 
+                                a(class="text-decoration-none")=SetWeb.WebAddress
+                            li
+                                i(class="fa fa-phone fa-fw")
+                                a(class="text-decoration-none" href="tel:+66"+SetWeb.WebTel)=SetWeb.WebTel
+                            li
+                                i(class="fa fa-envelope fa-fw")
+                                a(class="text-decoration-none" href="mailto:"+SetWeb.WebEmail)=SetWeb.WebEmail
+                    div(class="row text-light mb-4")
+                        div(class="col-12 mb-3")
+                            div(class="w-100 my-3 border-top border-light")
+                        div(class="col-auto me-auto")
+                            ul(class="list-inline text-left footer-icons")
+                            each SocialMedia in Social
+                                if SocialMedia.SocialMediaId==1 && SocialMedia.SrcSocialMeida !=''&& SocialMedia.SrcSocialMeida  !=null
+                                    li(class="list-inline-item border border-light rounded-circle text-center")
+                                        a(class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"+Social[0].SrcSocialMeida)
+                                            i(class="fab fa-facebook-f fa-lg fa-fw")
+                                else if SocialMedia.SocialMediaId==2 && SocialMedia.SrcSocialMeida !='' && SocialMedia.SrcSocialMeida  !=null
+                                    li(class="list-inline-item border border-light rounded-circle text-center")
+                                        a(class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"+Social[1].SrcSocialMeida)
+                                            i(class="fab fa-instagram fa-lg fa-fw")
+                                else if SocialMedia.SocialMediaId==3 && SocialMedia.SrcSocialMeida !='' && SocialMedia.SrcSocialMeida  !=null
+                                    li(class="list-inline-item border border-light rounded-circle text-center")
+                                        a(class="text-light text-decoration-none" target="_blank" href="https://line.me/"+Social[2].SrcSocialMeida)
+                                            i(class="fab fa-line fa-lg fa-fw")
+                                else if SocialMedia.SocialMediaId==4 && SocialMedia.SrcSocialMeida !='' && SocialMedia.SrcSocialMeida  !=null
+                                    li(class="list-inline-item border border-light rounded-circle text-center")
+                                        a(class="text-light text-decoration-none" target="_blank" href="https://www.tiktok.com/"+Social[3].SrcSocialMeida)
+                                            i(class="fab fa-tiktok fa-lg fa-fw")
+
+            div(class="w-100 bg-black py-3")
+                div(class="container")
+                    div(class="row pt-2")
+                        div(class="col-12")
+                            p(class="text-left text-light") Copyright &copy; 2022
+                                =SetWeb.WebName
+        script(src="/Js/templatemo.js")
+        script(src="/Js/custom.js")

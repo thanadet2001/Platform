@@ -1,0 +1,244 @@
+extends Layout.pug
+block navbar
+  li.nav-item
+    a.nav-link(href='/SellerCenter/Home')
+      span.nav-icon
+        svg.bi.bi-house-door(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+            path(fill-rule='evenodd', d='M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z')
+            path(fill-rule='evenodd', d='M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z')                       
+      span.nav-link-text หน้าหลัก
+block NavProduct
+  li.nav-item.has-submenu
+    a.nav-link.submenu-toggle(href='#', data-bs-toggle='collapse', data-bs-target='#submenu-1', aria-expanded='false', aria-controls='submenu-1')
+      span.nav-icon
+        svg.bi.bi-folder(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(d='M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z')
+          path(fill-rule='evenodd', d='M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z')                       
+      span.nav-link-text จัดการสินค้า
+      span.submenu-arrow
+        svg.bi.bi-chevron-down(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z')  
+    #submenu-1.collapse.submenu.submenu-1(data-bs-parent='#menu-accordion')
+      ul.submenu-list.list-unstyled
+        li.submenu-item
+          a.submenu-link(href='/SellerCenter/Product') แสดงรายการการสินค้า
+        li.submenu-item
+          a.submenu-link(href='/SellerCenter/Category') แสดงรายการการหมวดหมู่
+        li.submenu-item
+          a.submenu-link(href='/SellerCenter/Brand') แสดงรายการการแบรนด์
+        li.submenu-item
+          form(action='/SellerCenter/Product/Add', method='GET' )
+            button.submenu-link(type="submit" style="border: none;outline: none;background: none;") เพิ่มสินค้า
+        li.submenu-item
+          form(action='/SellerCenter/Product/AddBrand', method='GET' )
+            button.submenu-link(type="submit" style="border: none;outline: none;background: none;") เพิ่มแบรนด์
+block Orders
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/Orders')
+      span.nav-icon
+        svg.bi.bi-card-list(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z')
+          path(fill-rule='evenodd', d='M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z')
+          circle(cx='3.5', cy='5.5', r='.5')
+          circle(cx='3.5', cy='8', r='.5')
+          circle(cx='3.5', cy='10.5', r='.5')                         
+      span.nav-link-text จัดการคำสั่งซื้อ
+block NavSetwebsite
+  li.nav-item.has-submenu
+    a.nav-link.submenu-toggle(href='#', data-bs-toggle='collapse', data-bs-target='#submenu-2', aria-expanded='false', aria-controls='submenu-2')
+      span.nav-icon
+        svg.bi.bi-columns-gap(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M6 1H1v3h5V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z')                       
+      span.nav-link-text ปรับแต่งเว็บ
+      span.submenu-arrow
+        svg.bi.bi-chevron-down(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z')  
+    #submenu-2.collapse.submenu.submenu-2(data-bs-parent='#menu-accordion')
+      ul.submenu-list.list-unstyled
+        li.submenu-item
+          form(id="Test" action='/SellerCenter/Setwebsite', method='GET' )
+            button.submenu-link(type="submit" style="border:none;outline:none;background: none;") เปลี่ยนเมนู ธีม สีพื้นหลัง ฟอนต์
+        li.submenu-item
+          form(id="Test" action='/SellerCenter/Setwebsite/Settings', method='GET' )
+            button.submenu-link(type="submit" style="border:none;outline:none;background: none;") ตั้งค่าเว็บ ลิงก์เว็บ
+block TotalSale
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/TotalSeller')
+      span.nav-icon
+        svg.bi.bi-bar-chart-line(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z')
+      | &#x9;&#x9;                         
+      span.nav-link-text สรุปยอดขายของสินค้า
+block TotalSale1
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/TotalSell')
+      span.nav-icon
+        svg.bi.bi-bar-chart-line(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z')
+      | &#x9;&#x9;                         
+      span.nav-link-text สรุปยอดขาย
+block Banks
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link.active(href='/SellerCenter/Banks')
+      span.nav-icon
+        svg.bi.bi-gear(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z')
+          | &#x9;  
+          path(fill-rule='evenodd', d='M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z')
+      | &#x9;&#x9;&#x9;                        
+      span.nav-link-text จัดการบัญชีธนาคาร
+block Adm
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/Info')
+      span.nav-icon
+        svg.bi.bi-file-person(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z')
+          | &#x9;  
+          path(fill-rule='evenodd', d='M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z')
+      | &#x9;&#x9;&#x9;                        
+      span.nav-link-text ข้อมูลผู้ดูแลระบบ
+
+block content
+  .app-wrapper
+      .app-content.pt-3.p-md-3.p-lg-4
+        .container-xl
+          .row.g-3.mb-4.align-items-center.justify-content-between
+            .col-auto
+              h5.app-page-mb-0 
+                a.nav-item(href="/SellerCenter/Home" )|หน้าหลัก 
+                ="> "
+                | แสดงรายการการบัญชีธนาคาร
+            .col-auto
+              .page-utilities
+                .row.g-2.justify-content-start.justify-content-md-end.align-items-center
+                  .col-auto
+                    .table-search-form.row.gx-1.align-items-center
+                      //#search-orders
+                  // //col   
+                  .col-auto
+                    .row.gx-1
+                        button.btn.app-btn-secondary(type='submit' data-bs-toggle="modal" data-bs-target="#AddBanks")
+                          svg.bi.bi-node-plus(xmlns='http://www.w3.org/2000/svg', width='1.5em', height='1.5em', fill='currentColor', viewBox='0 0 16 16')
+                            path(fill-rule='evenodd', d='M11 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM6.025 7.5a5 5 0 1 1 0 1H4A1.5 1.5 0 0 1 2.5 10h-1A1.5 1.5 0 0 1 0 8.5v-1A1.5 1.5 0 0 1 1.5 6h1A1.5 1.5 0 0 1 4 7.5h2.025zM11 5a.5.5 0 0 1 .5.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2A.5.5 0 0 1 11 5zM1.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z')
+                          |เพิ่มบัญชีธนาคาร
+                        form( action='/SellerCenter/Banks/Add', method='POST', enctype="multipart/form-data")
+                          #AddBanks.modal.fade(tabindex='-1', aria-hidden='true')
+                            .modal-dialog.modal-dialog-centered
+                              .modal-content
+                                .modal-header
+                                  h5#exampleModalLabel.modal-title เพิ่มบัญชีธนาคาร
+                                  button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+                                .modal-body
+                                  h5.mb-3|ข้อมูลธนาคาร
+                                  label.from-control เลขที่บัญชีธนาคาร
+                                  input.form-control(type='text', name='BankNumber', required=true placeholder="123-456-789" maxlength=40 )
+                                  .mb-3
+                                  label.from-control ชื่อบัญชีธนาคาร
+                                  input.form-control(type='text', name='AccountName', required=true placeholder="เช่น นายก นามสกุลข" maxlength=150 )
+                                  .mb-3
+                                  label.from-control คิวอาร์โค้ด
+                                  input.form-control(type="file" name="qrcode" accept="image/png, image/jpeg , image/jpg")
+                                  .mb-3 
+                                  label.from-control ธนาคาร
+                                  select.form-control(name="bank" id="bank" required=true)
+                                    each Banks in Bank
+                                      option(value=Banks.BankId)=Banks.BankName
+                                .modal-footer
+                                  button.btn.btn-secondary(type='button', data-bs-dismiss='modal') ปิด
+                                  button.btn.btn-primary(type='submit' style="color : white;") เพิ่มบัญชีธนาคาร
+                // //row
+              // //table-utilities
+            // //col-auto
+          // //row
+          if ErBank !=''
+              div(class="alert alert-danger py-3" role="alert")=ErBank
+          .table-search-form.row.gx-2.align-items-center#search-orders
+          br
+          .app-card.app-card-orders-table.shadow-sm.mb-5
+            .app-card-body(style="overflow-x:auto;")
+              .table
+                table#myTable.table.app-table-hover.mb-0.text-left
+                  thead
+                    tr
+                      th.cell ลำดับที่
+                      th.cell รูปธนาคาร
+                      th.cell เลขที่บัญชีธนาคาร
+                      th.cell ชื่อบัญชีธนาคาร
+                      th.cell รูปภาพคิวอาร์โค้ด
+                      th.cell การกระทำ
+                  tbody
+                    each AcBanks,index in AcBank
+                      tr
+                        th.cell=index+1
+                        th.cell
+                          a(href='/Img/Icon/'+AcBanks.BankImg target="_blank")
+                            img(src='/Img/Icon/'+AcBanks.BankImg width=50 height=50)
+                        th.cell=AcBanks.BankNumber  
+                        th.cell=AcBanks.AccountName 
+                        th.cell
+                          if AcBanks.QrImg == 'null' 
+                            span.badge.bg-info="ยังไม่มีคิวอาร์โค้ด"
+                          else 
+                            a(href='/Img/Settings/Banks/'+AcBanks.QrImg target="_blank")
+                              img(src='/Img/Settings/Banks/'+AcBanks.QrImg width=70 height=100)
+                        th.cell
+                          button.btn.btn-outline-primary(type='submit' data-bs-toggle="modal" data-bs-target="#EditBanks"+AcBanks.AccountBankId) แก้ไข
+                          button.btn.btn-outline-danger(type='submit' data-bs-toggle="modal" data-bs-target="#DeleteBanks"+AcBanks.AccountBankId) ลบ
+                          form(action='/SellerCenter/Banks/' + AcBanks.AccountBankId + '/Edit', method='POST',enctype="multipart/form-data")
+                            .modal.fade(id="EditBanks"+AcBanks.AccountBankId tabindex='-1', aria-hidden='true')
+                              .modal-dialog.modal-dialog-centered
+                                .modal-content
+                                  .modal-header
+                                    h5#EditCategoryLabel.modal-title แก้ไขข้อมูลธนาคาร
+                                    button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+                                  .modal-body
+                                    h5.mb-3|แก้ไขข้อมูลธนาคาร
+                                    label.from-control เลขที่บัญชีธนาคาร
+                                    input.form-control(type='text', name='BankNumber', value=AcBanks.BankNumber required=true placeholder="123-456-789" maxlength=40 )
+                                    .mb-3
+                                    label.from-control ชื่อบัญชีธนาคาร
+                                    input.form-control(type='text', name='AccountName', value=AcBanks.AccountName required=true placeholder="123-456-789" maxlength=150 )
+                                    .mb-3
+                                    label.from-control คิวอาร์โค้ด
+                                    input.form-control(type="file" name="qrcode" accept="image/png, image/jpeg , image/jpg")
+                                    .mb-3 
+                                    label.from-control ธนาคาร
+                                    select.form-control(name="bank" id="bank" required=true)
+                                      option(value=AcBanks.BankId)=AcBanks.BankName
+                                      each Banks in Bank
+                                        if AcBanks.BankId !=Banks.BankId
+                                          option(value=Banks.BankId)=Banks.BankName
+                                  .modal-footer
+                                    button.btn.btn-secondary(type='button', data-bs-dismiss='modal') ปิด
+                                    button.btn.btn-primary(type='submit' style="color : white;") แก้ไขข้อมูลธนาคาร
+                          form(action='/SellerCenter/Banks/' + AcBanks.AccountBankId + '/Delete', method='POST')
+                              .modal.fade(id="DeleteBanks"+AcBanks.AccountBankId tabindex='-1', aria-hidden='true')
+                                .modal-dialog.modal-dialog-centered
+                                  .modal-content
+                                    .modal-header
+                                      h5#EditCategoryLabel.modal-title.text-danger ยืนยันการลบข้อมูลธนาคาร
+                                      button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+                                    .modal-footer
+                                      button.btn.btn-warning(type='button', data-bs-dismiss='modal') ปิด
+                                      button.btn.btn-danger(type='submit' style="color : white; background-color:#FF322C;") ลบข้อมูลธนาคาร
+  script(src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js")
+  script(src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js")
+  script.
+      $(document).ready(function() {
+        $('#myTable').DataTable({
+            "language": {
+              url:'https://cdn.datatables.net/plug-ins/1.12.1/i18n/th.json'
+            },
+            "aLengthMenu": [[10, 20, 75, -1], [10, 20, 75, "All"]],
+            "iDisplayLength": 10,
+             "initComplete" : function() {
+               $("#myTable_filter").detach().appendTo('#search-orders');
+            }
+        });
+      });
+      

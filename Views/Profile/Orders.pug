@@ -1,0 +1,150 @@
+extends Info.pug
+
+block details 
+    section
+        -function formatMoney(inum){  // ฟังก์ชันสำหรับแปลงค่าตัวเลขให้อยู่ในรูปแบบ เงิน
+            -var s_inum=new String(inum);
+            -var num2=s_inum.split(".");
+            -var n_inum="";
+            -if(num2[0]!=undefined){
+                -var l_inum=num2[0].length;
+                -for(i=0;i<l_inum;i++){
+                    -if(parseInt(l_inum-i)%3==0){
+                        -if(i==0){
+                            -n_inum+=s_inum.charAt(i);
+                        -}else{
+                            -n_inum+=","+s_inum.charAt(i);
+                        -}
+                    -}else{
+                        -n_inum+=s_inum.charAt(i);
+                    -}
+                -}
+            -}else{
+                -n_inum=inum;
+            -}
+            -if(num2[1]!=undefined){
+                -n_inum+="."+num2[1];
+            -}
+            -return n_inum;
+        -}
+        .container
+            .row(style="overflow-x:auto;")
+                .table
+                    table.table.table-hover.mb-0.text-left#myTable
+                        thead
+                            tr
+                                th.cell หมายเลขคำสั่งซื้อ#
+                                th.cell สลิปการโอนเงิน
+                                th.cell วันที่แนปสลิป
+                                th.cell วันที่สั่งซื้อ
+                                th.cell ยอดรวม
+                                th.cell สถานะ
+                                th.cell การกระทำ
+                        tbody
+                            each Orders,index in Order
+                                tr
+                                    td.cell(align="center" style="width: 100px;")
+                                        a(class="nav-link" href='/AccUser/'+customer.Username+'/Orders/'+Orders.OrderId)=Orders.OrderId
+                                    td.cell(align="center" style="width: 60px;")
+                                        if Orders.BankSlip == null  
+                                            span.badge.bg-secondary="ยังไม่มีการแนปสลิปโอนเงิน"
+                                        else 
+                                            a(href='/Img/Slip/'+Orders.BankSlip target="_blank")
+                                                img(src='/Img/Slip/'+Orders.BankSlip width=50 height=50)
+
+                                    td.cell 
+                                        if Orders.BankSlipDateTime == null 
+                                            span.badge.bg-secondary="ยังไม่มีวันที่แนปสลิป"
+                                        else 
+                                            span.badge.bg-info=Orders.DateSlip
+                                    td.cell=Orders.Date 
+                                    td.cell=formatMoney(parseFloat(Orders.NetPrice*1+parseInt(Orders.Dropship)).toFixed(2))
+                                    td.cell
+                                        if Orders.OrdersStatus ==0
+                                            span.badge.bg-secondary="รอการชำระเงิน"
+                                        else if Orders.OrdersStatus ==1
+                                            span.badge.bg-info="รอการตรวจสอบ"
+                                        else if Orders.OrdersStatus ==2
+                                            span.badge.bg-warning="กำลังเตรียมพัสดุ"
+                                        else if Orders.OrdersStatus==3
+                                            span.badge.bg-success="ร้านค้าส่งพัสดุเสร็จสิ้น"
+                                            br
+                                            span.badge.bg-success="แจ้งหมายเลขการส่ง :"
+                                            br
+                                            span.badge.bg-success=Orders.TrackingId
+                                        else 
+                                            span.badge.bg-danger="ยกเลิกคำสั่งซื้อ"
+                                    td.cell 
+                                        if  Orders.OrdersStatus ==0 || Orders.OrdersStatus ==1
+                                            button.btn.btn-outline-success(type='submit' data-bs-toggle="modal" data-bs-target="#Confirm1"+Orders.OrderId) แจ้งชำระเงิน
+                                            button.btn.btn-outline-danger(type='submit' data-bs-toggle="modal" data-bs-target="#Cancle1"+Orders.OrderId) ยกเลิกคำสั่งซื้อ
+                                            form(action='/AccUser/'+customer.Username+'/Orders/' + Orders.OrderId + '/Confirm', method='POST' enctype="multipart/form-data")
+                                                .modal.fade(id="Confirm1"+Orders.OrderId tabindex='-1', aria-hidden='true' )
+                                                    .modal-dialog.modal-dialog-centered.modal-xl
+                                                        .modal-content
+                                                            .modal-header
+                                                                h5.modal-title="แจ้งชำระเงินหมายเลขคำสั่งซื้อ# "+Orders.OrderId
+                                                                button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+                                                            .modal-body
+                                                                h5(align="center") รายละเอียดการชำระเงิน
+                                                                label หมายเลขการสั่งซื้อ
+                                                                input.form-control(readonly value=Orders.OrderId)
+                                                                label จำนวนเงินที่ต้องโอน
+                                                                input.form-control(readonly value=formatMoney(parseFloat(Orders.NetPrice*1+parseInt(Orders.Dropship)).toFixed(2))+" บาท")
+                                                                h5(align="center") ช่องทางการชำระเงิน
+                                                                .container
+                                                                .row
+                                                                    each Bank in Banks 
+                                                                        .col
+                                                                            .form-check.form-check-inline
+                                                                                input#inlineRadio1.form-check-input(type='radio', name='BankId' value=Bank.AccountBankId required)
+                                                                                a(href='/Img/Icon/'+Bank.BankImg target="_blank")
+                                                                                    img(src='/Img/Icon/'+Bank.BankImg width=50 height=50)
+                                                                                label.form-check-label=Bank.BankName
+                                                                                .md-3
+                                                                                label.form-check-label="ชื่อเจ้าของบัญชี : "+Bank.AccountName
+                                                                                .md-3
+                                                                                label.form-check-label="เลขที่บัญชี : "+Bank.BankNumber
+                                                                                .md-3 
+                                                                                if Bank.QrImg == 'null' 
+                                                                                    label.form-check-label="คิวอาร์โค้ด : "
+                                                                                    span.badge.bg-info="ยังไม่มีคิวอาร์โค้ด"
+                                                                                else 
+                                                                                    label.form-check-label="คิวอาร์โค้ด : "
+                                                                                        a(href='/Img/Settings/Banks/'+Bank.QrImg target="_blank")
+                                                                                            img(src='/Img/Settings/Banks/'+Bank.QrImg width=70 height=100)
+                                                                label แนบสลิปการโอนเงิน
+                                                                input.form-control(type="file" name="Slip" accept="image/png, image/jpeg , image/jpg" required)
+                                                                label วันเวลาในการโอนเงิน
+                                                                input.form-control(type="datetime-local" name="DateSlip" required)
+                                                            .modal-footer
+                                                                button.btn.btn-secondary(type='button', data-bs-dismiss='modal') ปิด
+                                                                button.btn.btn-success(type='submit' style="color : white;") ยืนยันหมายเลขคำสั่งซื้อ
+                                            form(action='/AccUser/'+customer.Username+'/Orders/' + Orders.OrderId + '/Cancle', method='POST')
+                                                .modal.fade(id="Cancle1"+Orders.OrderId tabindex='-1', aria-hidden='true')
+                                                    .modal-dialog.modal-dialog-centered.modal-xl
+                                                        .modal-content
+                                                            .modal-header
+                                                                h5#EditCategoryLabel.modal-title.text-danger="ยืนยันการยกเลิกคำสั่งซื้อหมายเลข# "+Orders.OrderId
+                                                                button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+                                                            .modal-body
+                                                                h6.text-danger| ** ข้อควรระวังไม่สามารถแก้ไขได้อีกหากยกเลิกคำสั่งซื้อ **
+                                                            .modal-footer
+                                                                button.btn.btn-warning(type='button', data-bs-dismiss='modal') ปิด
+                                                                button.btn.btn-danger(type='submit' style="color : white; background-color:#FF322C;") ยืนยันยกเลิกคำสั่งซื้อ
+                        tfoot 
+                            tr 
+                                br
+    script(src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js")
+    script(src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js")
+    script.
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                "language": {
+                url:'https://cdn.datatables.net/plug-ins/1.12.1/i18n/th.json'
+                },
+                "aLengthMenu": [[10, 20, 75, -1], [10, 20, 75, "All"]],
+                "iDisplayLength": 10,
+                "order": [],
+            });
+        });

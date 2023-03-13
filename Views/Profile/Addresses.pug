@@ -1,0 +1,34 @@
+extends Info.pug
+
+block details
+    section(class="container") 
+    if Errad != ''
+        div(class="alert alert-danger py-3" role="alert")=Errad
+    h4(class="text-center") ที่อยู่ในการจัดส่ง
+    .row.row-cols-2
+        each address in addresses
+            .col-sm-4
+                h5=address.FName+"\t"+address.LName
+                p
+                    span= address.Address
+                    br
+                    span= "แขวง"+address.TambonsNameTh+"\t"+address.AmphuresNameTh
+                    br
+                    span= address.ProvincesNameTh+"\t"+address.zip_code
+                    br
+                    span= "โทร."+address.Tel
+
+                form.dev-form(action='/AccUser/' + customer.Username +'/Addresses/' + address.AddressId + '/Edit', method='GET')
+                    button.btn.btn-default(type='submit')
+                        i.fa.fa-edit
+                        =' Edit'
+
+                form.dev-form(action='/AccUser/' + customer.Username + '/Addresses/' + address.AddressId + '/Delete', method='POST')
+                    button.btn.btn-default(type='submit')
+                        i.bi.bi-trash-fill
+                        = ' Delete'
+
+        form(action='/AccUser/'+ customer.Username +'/Addresses/Add', method='GET')
+            button.btn.btn-default(type='submit')
+                i.fa.fa-plus
+                = ' เพิ่มที่อยู่ใหม่'

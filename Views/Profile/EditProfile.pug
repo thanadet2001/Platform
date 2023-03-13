@@ -1,0 +1,15 @@
+extends Info.pug
+
+block details
+    form(action="/AccUser/"+customer.Username+"/Edit", method="POST")
+        label(for="email") อีเมล 
+        span &nbsp; &nbsp; &nbsp; : 
+        input.form-control.form-control-sm(type="email",name="email" value=customer.Email maxlength=100)
+        label(for='password') รหัสผ่าน :
+        input.form-control.form-control-sm(type='password', id='password', name='password', placeholder='กรุณาใส่รหัสผ่านอีกครั้ง' required=true)
+        hr
+        button(class="btn btn-warning text-center" type="submit") ยืนยันการเปลี่ยนอีเมล
+        if Email
+            div(class="alert alert-danger py-3" role="alert")=Email
+        if CheckedPass
+            div(class="alert alert-danger py-3" role="alert")=CheckedPass

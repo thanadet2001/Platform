@@ -1,0 +1,24 @@
+extends ../Layout.pug
+
+block content
+    section
+        .container
+            .row(class="d-flex justify-content-between")
+                h3.title.text-center
+                .col-sm-3
+                    .left-sidebar#templatemo_main
+                        .panel-group.category-products
+                            .panel.panel-default
+                                .panel-heading
+                                    h4.panel-title
+                                        a(href="/AccUser/" + customer.Username+'/') ข้อมูลส่วนตัว
+                            .panel.panel-default
+                                .panel-heading
+                                    h4.panel-title
+                                        a(href="/AccUser/" + customer.Username+'/'+"Addresses") ที่อยู่ในการจัดส่ง
+                            .panel.panel-default
+                                .panel-heading
+                                    h4.panel-title
+                                        a(href='/AccUser/' + customer.Username+'/Orders') หมายเลขการสั่งซื้อ
+                .col-sm-9
+                    block details

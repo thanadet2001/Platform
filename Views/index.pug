@@ -1,0 +1,138 @@
+extends layout.pug
+
+block content 
+    
+    .container.py-3
+        .row
+            .col-lg-3
+                h1.h2.pb-4 หมวดหมู่สินค้า &nbsp;
+                    - var category=JSON.parse(categoreis)
+                    ul.mtree.transit
+                        each cate in category
+                            li
+                                a(href="/search/"+cate.CategoryId+"/"+cate.CategoryName)=cate.CategoryName
+                                if(cate.subCate)
+                                    ul
+                                        each cat in cate.subCate 
+                                                li 
+                                                    a(href="/search/"+cat.CategoryId+"/"+cat.CategoryName)=cat.CategoryName
+                                                    if(cat.subCate)
+                                                        ul
+                                                            each cat1 in cat.subCate 
+                                                                    li 
+                                                                        a(href="/search/"+cat1.CategoryId+"/"+cat1.CategoryName)=cat1.CategoryName
+                                                                        if(cat1.subCate)
+                                                                            ul
+                                                                                each cat2 in cat1.subCate 
+                                                                                        li 
+                                                                                            a(href="/search/"+cat2.CategoryId+"/"+cat2.CategoryName)=cat2.CategoryName
+                                                                                            if(cat2.subCate)
+                                                                                                ul
+                                                                                                    each cat3 in cat2.subCate 
+                                                                                                            li 
+                                                                                                                a(href="/search/"+cat3.CategoryId+"/"+cat3.CategoryName)=cat3.CategoryName                       
+            .col-lg-9
+                form.row(action="/search" method='GET')
+                    .col-md-3
+                        .justify-content-between
+                            label(for="ค้นหา") ค้นหา
+                            input.form-control#filter(type="search" placeholder="ค้นหาตามชื่อสินค้า" aria-label="Search" autocomplete="off"  name="Productname" value=Productname)
+                    .col-md-3
+                        .justify-content-between
+                            label(for="เรียงลำดับ") หมวดหมู่
+                            select.form-control#kep(class="price-sorting type-regular" name="CategoryId")
+                                option(value="") ---ทุกหมวดหมู่---
+                                    -function loop(level) {
+                                        -return function (a) {
+                                            -var i = level
+                                            -var s = ''
+                                            -var j=0
+                                            -var space ='\u00a0'
+                                            -while (i--) {
+                                                -s+='\u00a0'+'\u00a0'
+                                                -j++
+                                            -}
+                                            -if (level) {
+                                                -s +='-'
+                                                -j
+                                            -}
+                                            option(value=a.CategoryId)=s+a.CategoryName
+                                            
+                                            -Array.isArray(a.subCate) && a.subCate.forEach(loop(level + 1));
+                                        -}
+                                    -}
+                                    -var data = JSON.parse(categoreis)
+                                    - data.forEach(loop(0)); 
+                    .col-md-2
+                        label(for="Brand") ชื่อแบรนด์
+                        select.form-control#kep2(class="price-sorting type-regular" name="Brand")
+                            option(value="") ---ทุกแบรนด์---
+                            each Brand,index in Brands
+                                option(value=Brand.BrandId)=Brand.BrandName
+                    .col-md-2
+                        .justify-content-between
+                            label(for="เรียงลำดับ") เรียงสินค้าตาม
+                            select.form-control#kep(class="price-sorting type-regular" name="Sort")
+                                option(value="") ---ค่าเริ่มต้น---
+                                option(value="ASC") ราคาน้อยไปมาก
+                                option(value="DESC") ราคามากไปน้อย
+                    .col-md-1
+                        br
+                        button.btn.btn-success.form-control(type='submit') ค้นหา
+                    .col-md-1
+                        br
+                        button.btn.btn-danger.form-control(onclick="Clear()") รีเซ็ต
+                br
+                .row#mycard.products-grid
+                    each product in Product
+                        .col-md-4.product(data-price=product.ProductPrice)
+                            .card.mb-4.product-wap.rounded-0.bg-light
+                                .card.rounded-0
+                                    img.card-img.rounded-0.img-fluid(src="/Img/Product/"+product.productImg)
+                                    .card-img-overlay.rounded-0.product-overlay.d-flex.align-items-center.justify-content-center
+                                        ul.list-unstyled
+                                            li
+                                                a.btn.btn-success.text-white.mt-2(href='/Product/'+product.CategoryName+'/'+product.ProductId+'/'+product.ProductName) ดูสินค้า
+                                                    i.far.fa-eye
+                                            li
+                                                if product.ProductQuantity !=0
+                                                    if(customer)
+                                                        if(customer.UserStatus==0)
+                                                            form(action='/Cart/' + product.ProductId + '/add', method='POST')
+                                                                button.btn.btn-success.text-white.mt-2(type=submit) มีสินค้า
+                                                                    i.fas.fa-cart-plus
+                                                    else 
+                                                        a.btn.btn-warning.text-white.mt-2(href="/SignIn") กรุณาเข้าสู่ระบบ
+                                                            i.fas.fa-cart-plus
+                                                else 
+                                                    a.btn.btn-danger.text-white.mt-2(disabled) สินค้าหมด
+                                                        i.fas.fa-cart-plus
+                                            li(hidden)=product.BrandName
+                                .card-body
+                                    if product.ProductName.length > 62
+                                        a.h3.text-decoration-none(href='/Product/'+product.CategoryName+'/'+product.ProductId+'/'+product.ProductName)=product.ProductName.substring(0,50)+"..."
+                                    else    
+                                        a.h3.text-decoration-none(href='/Product/'+product.CategoryName+'/'+product.ProductId+'/'+product.ProductName)=product.ProductName
+                                    ul.w-100.list-unstyled.d-flex.justify-content-between.mb-0
+                                        li="หมวดหมู่ : "+product.CategoryName
+                                        li.pt-2
+                                            span.product-color-dot.color-dot-red.float-left.rounded-circle.ml-1
+                                            span.product-color-dot.color-dot-blue.float-left.rounded-circle.ml-1
+                                            span.product-color-dot.color-dot-black.float-left.rounded-circle.ml-1
+                                            span.product-color-dot.color-dot-light.float-left.rounded-circle.ml-1
+                                            span.product-color-dot.color-dot-green.float-left.rounded-circle.ml-1
+                                    p.text-center.mb-0.price="ราคา : "+product.ProductPrice+" บาท"
+        script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+        script(src='http://cdnjs.cloudflare.com/ajax/libs/velocity/0.2.1/jquery.velocity.min.js')
+        script(src="/Js/mtree.js")
+        script(src='https://code.jquery.com/jquery-3.6.0.min.js')
+        script.
+            function Clear(){
+                document.getElementById("kep").value="";
+                document.getElementById("kep1").value="";
+                document.getElementById("kep2").value="";
+                document.getElementById("filter").value='';
+            }
+            $(document).ready(function() {
+                var mtree = $('ul.mtree');
+            });

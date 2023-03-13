@@ -1,0 +1,431 @@
+extends Layout.pug
+
+block navbar
+  li.nav-item
+    a.nav-link(href='/SellerCenter/Home')
+      span.nav-icon
+        svg.bi.bi-house-door(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+            path(fill-rule='evenodd', d='M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z')
+            | &#x9;&#x9;  
+            path(fill-rule='evenodd', d='M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z')
+      | &#x9;&#x9;                         
+      span.nav-link-text หน้าหลัก
+block NavProduct
+  li.nav-item.has-submenu
+    a.nav-link.submenu-toggle(href='#', data-bs-toggle='collapse', data-bs-target='#submenu-1', aria-expanded='false', aria-controls='submenu-1')
+      span.nav-icon
+        svg.bi.bi-folder(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(d='M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z')
+          path(fill-rule='evenodd', d='M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z')                       
+      span.nav-link-text จัดการสินค้า
+      span.submenu-arrow
+        svg.bi.bi-chevron-down(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z')  
+    #submenu-1.collapse.submenu.submenu-1(data-bs-parent='#menu-accordion')
+      ul.submenu-list.list-unstyled
+        li.submenu-item
+          a.submenu-link(href='/SellerCenter/Product') แสดงรายการการสินค้า
+        li.submenu-item
+          a.submenu-link(href='/SellerCenter/Category') แสดงรายการการหมวดหมู่
+        li.submenu-item
+          a.submenu-link(href='/SellerCenter/Brand') แสดงรายการการแบรนด์
+        li.submenu-item
+          form(id="Test" action='/SellerCenter/Product/Add', method='GET' )
+            button.submenu-link(type="submit" style="border:none;outline:none;background: none;") เพิ่มสินค้า
+        li.submenu-item
+          form(action='/SellerCenter/Product/AddBrand', method='GET' )
+            button.submenu-link(type="submit" style="border: none;outline: none;background: none;") เพิ่มแบรนด์
+block Orders
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/Orders')
+      span.nav-icon
+        svg.bi.bi-card-list(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z')
+          path(fill-rule='evenodd', d='M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z')
+          circle(cx='3.5', cy='5.5', r='.5')
+          circle(cx='3.5', cy='8', r='.5')
+          circle(cx='3.5', cy='10.5', r='.5')                         
+      span.nav-link-text จัดการคำสั่งซื้อ
+block NavSetwebsite
+  li.nav-item.has-submenu
+    a.nav-link.submenu-toggle(href='#', data-bs-toggle='collapse', data-bs-target='#submenu-2', aria-expanded='false', aria-controls='submenu-2')
+      span.nav-icon
+        svg.bi.bi-columns-gap(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M6 1H1v3h5V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z')                       
+      span.nav-link-text ปรับแต่งเว็บ
+      span.submenu-arrow
+        svg.bi.bi-chevron-down(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z')  
+    #submenu-2.collapse.submenu(data-bs-parent='#menu-accordion')
+      ul.submenu-list.list-unstyled
+        li.submenu-item
+          form(id="Test" action='/SellerCenter/Setwebsite', method='GET' )
+            button.submenu-link(type="submit" style="border:none;outline:none;background: none;") เปลี่ยนเมนู ธีม สีพื้นหลัง ฟอนต์
+        li.submenu-item
+          form(id="Test" action='/SellerCenter/Setwebsite/Settings', method='GET' )
+            button.submenu-link(type="submit" style="border:none;outline:none;background: none;") ตั้งค่าเว็บ ลิงก์เว็บ
+block TotalSale
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link.active(href='/SellerCenter/TotalSeller')
+      span.nav-icon
+        svg.bi.bi-bar-chart-line(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z')
+      | &#x9;&#x9;                         
+      span.nav-link-text สรุปยอดขายของสินค้า
+
+block TotalSale1
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/TotalSell')
+      span.nav-icon
+        svg.bi.bi-bar-chart-line(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z')
+      | &#x9;&#x9;                         
+      span.nav-link-text สรุปยอดขาย
+
+block Banks
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/Banks')
+      span.nav-icon
+        svg.bi.bi-gear(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z')
+          | &#x9;  
+          path(fill-rule='evenodd', d='M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z')
+      | &#x9;&#x9;&#x9;                        
+      span.nav-link-text จัดการบัญชีธนาคาร  
+block Adm
+  li.nav-item
+    // //Bootstrap Icons: https://icons.getbootstrap.com/
+    a.nav-link(href='/SellerCenter/Info')
+      span.nav-icon
+        svg.bi.bi-file-person(width='1em', height='1em', viewBox='0 0 16 16', fill='currentColor', xmlns='http://www.w3.org/2000/svg')
+          path(fill-rule='evenodd', d='M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z')
+          | &#x9;  
+          path(fill-rule='evenodd', d='M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z')
+      | &#x9;&#x9;&#x9;                        
+      span.nav-link-text ข้อมูลผู้ดูแลระบบ
+
+
+block content
+  -function formatMoney(inum){  // ฟังก์ชันสำหรับแปลงค่าตัวเลขให้อยู่ในรูปแบบ เงิน
+    -var s_inum=new String(inum);
+    -var num2=s_inum.split(".");
+    -var n_inum="";
+    -if(num2[0]!=undefined){
+        -var l_inum=num2[0].length;
+        -for(i=0;i<l_inum;i++){
+            -if(parseInt(l_inum-i)%3==0){
+                -if(i==0){
+                    -n_inum+=s_inum.charAt(i);
+                -}else{
+                    -n_inum+=","+s_inum.charAt(i);
+                -}
+            -}else{
+                -n_inum+=s_inum.charAt(i);
+            -}
+        -}
+    -}else{
+        -n_inum=inum;
+    -}
+    -if(num2[1]!=undefined){
+        -n_inum+="."+num2[1];
+    -}
+    -return n_inum;
+  -}
+  .app-wrapper
+      .app-content.pt-3.p-md-3.p-lg-4
+        .container-xl
+          .row.g-3.mb-4.align-items-center.justify-content-between
+            .col-auto
+              h5.app-page-mb-0 
+                a.nav-item(href="/SellerCenter/Home" )|หน้าหลัก 
+                ="> "
+                | แสดงยอดขายแต่ละสินค้า
+            .col-auto
+              .page-utilities
+                .row.g-2.justify-content-start.justify-content-md-end.align-items-center
+                  .col-auto
+                    .table-search-form.row.gx-1.align-items-center
+                      //#search-orders
+                          
+                  // //col   
+                // //row
+              // //table-utilities
+            // //col-auto
+          .row.g-3.mb-4.align-items-center.justify-content-between
+            .col-auto
+              form(action='/SellerCenter/TotalSeller/Search', method='POST')
+                label(for="Date") วันที่เริ่มต้น
+                input.form-control-sm(type="date" name="DateStart" value=DateSt required)
+                label(for="Date") วันที่สิ้นสุด
+                input.form-control-sm(type="date" name="DateEnd" value=DateE required)
+                label(for="Date") ค้นหาตามสินค้า
+                input.form-control-sm(type="text" name="Product" value=product)
+                button.btn.btn-success(type='submit', style="color : white;") ค้นหา
+          hr
+          .table-search-form.row.gx-2.align-items-center#search-orders
+          br
+          .app-card.app-card-orders-table.shadow-sm.mb-5
+            .app-card-body
+            -var Total=0.00
+              .table
+                table.table.app-table-hover.mb-0.text-left#myTable
+                  thead
+                    tr
+                      th.cell ลำดับ
+                      th.cell ชื่อสินค้า
+                      th.cell จำนวนสินค้า
+                      th.cell ยอดรวม
+                  tbody
+                    each Order,index in Orders
+                      tr 
+                        th.cell=index+1
+                        th.cell=Order.ProductName 
+                        th.cell=Order.TotalQuantity
+                        th.cell=formatMoney(parseFloat(Order.TotalPrice).toFixed(2))
+                  tfoot 
+                    tr
+                      th.cell
+                      th.cell="ยอดรวม"
+                      th.cell
+                      th.cell
+
+          hr
+          #chart      
+  script(src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js")
+  script(src="https://cdn.datatables.net/plug-ins/1.12.1/api/sum().js")
+  script(src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js")
+  script(src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js")
+  script(src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap5.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js")
+  script(src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js")
+  script(src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js")
+  script(src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js")
+  script(src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js")
+  script(src="https://code.highcharts.com/highcharts.js")
+  script(src="https://code.highcharts.com/modules/no-data-to-display.js")
+  script(src="https://code.highcharts.com/modules/series-label.js")
+  script(src="https://code.highcharts.com/modules/exporting.js")
+  script(src="https://code.highcharts.com/modules/export-data.js")
+  script(src="https://code.highcharts.com/modules/accessibility.js")
+  script.
+    var Name="#{product}"
+    var dst="#{DateE}"
+    var dse="#{DateSt}"
+      function formatMoney(inum){  // ฟังก์ชันสำหรับแปลงค่าตัวเลขให้อยู่ในรูปแบบ เงิน
+      var s_inum=new String(inum);
+      var num2=s_inum.split(".");
+      var n_inum="";
+        if(num2[0]!=undefined){
+            var l_inum=num2[0].length;
+            for(i=0;i<l_inum;i++){
+                if(parseInt(l_inum-i)%3==0){
+                    if(i==0){
+                        n_inum+=s_inum.charAt(i);
+                    }else{
+                        n_inum+=","+s_inum.charAt(i);
+                    }
+                }else{
+                    n_inum+=s_inum.charAt(i);
+                }
+            }
+        }else{
+            n_inum=inum;
+        }
+        if(num2[1]!=undefined){
+            n_inum+="."+num2[1];
+        }
+        return n_inum;
+      }
+      var table=$('#myTable').DataTable({
+            "language": {
+              url:'https://cdn.datatables.net/plug-ins/1.12.1/i18n/th.json'
+            },
+            "aLengthMenu": [[10, 20, 75, -1], [10, 20, 75, "All"]],
+            "iDisplayLength": 10,
+             "initComplete" : function() {
+               $("#myTable_filter").detach().appendTo('#search-orders');
+            },
+            fixedHeader: {
+            header: true,
+            footer: true
+            },
+           "footerCallback": function(row, data, start, end, display) {
+            var api = this.api(),
+              data;
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function(i) {
+              return typeof i === 'string' ?
+                i.replace(/[\$,]/g, '') * 1 :
+                typeof i === 'number' ?
+                i : 0;
+            };
+
+            // Total over all pages
+            total = api
+              .column(2)
+              .data()
+              .reduce(function(a, b) {
+                return intVal(a) + intVal(b);
+              }, 0);
+            total1 = api
+              .column(3)
+              .data()
+              .reduce(function(a, b) {
+                return intVal(a) + intVal(b);
+              }, 0);
+
+            // Total over this page
+            /*pageTotal = api
+              .column(3, {
+                page: 'current'
+              })
+              .data()
+              .reduce(function(a, b) {
+                return intVal(a) + intVal(b);
+              }, 0);*/
+
+            // Update footer
+            $(api.column(2).footer()).html(
+               total
+            );
+            $(api.column(3).footer()).html(
+                formatMoney(parseFloat(total1).toFixed(2))
+            );
+          },
+          dom: 'Bfrtip',
+            buttons: [
+                { extend: 'copyHtml5', footer: true },
+                { extend: 'excelHtml5', footer: true },
+                { extend: 'csvHtml5', footer: true },
+                { extend: 'pdfHtml5', footer: true }
+            ]
+        });
+          $('#min, #max').on('change', function () {
+            table.draw();
+          });
+      let draw = false;
+
+      init();
+
+      /**
+      * FUNCTIONS
+      */
+
+      function init() {
+        // initialize DataTables
+        // get table data
+        const tableData = getTableData(table);
+        // create Highcharts
+        createHighcharts(tableData);
+        // table events
+        setTableEvents(table);
+      }
+
+      function getTableData(table) {
+        const dataArray = [],
+          countryArray = [],
+          populationArray = [],
+          densityArray = [];
+
+        // loop table rows
+        table.rows({ search: "applied" }).every(function() {
+          const data = this.data();
+          console.log(data[1]);
+          countryArray.push(data[1]);
+          populationArray.push(parseInt(data[2].replace(/\,/g, "")));
+          densityArray.push(parseFloat(data[3].replace(/\,/g, "")));
+        });
+
+        // store all data in dataArray
+        dataArray.push(countryArray, populationArray, densityArray);
+
+        return dataArray;
+      }
+
+      function createHighcharts(data) {
+        Highcharts.setOptions({
+          lang: {
+            thousandsSep: ","
+          },
+        });
+
+        Highcharts.chart("chart", {
+          title: {
+            text: "สรุปยอดขายของสินค้า "+Name
+          },
+          subtitle: {
+            text: "ข้อมูลจากยอดขายสินค้าวันที่ "+dst+" ถึง วันที่ "+dse
+          },
+          xAxis: [
+            {
+              categories: data[0],
+              labels: {
+                rotation: -30
+              }
+            }
+          ],
+          yAxis: [
+            {
+              // first yaxis
+              title: {
+                text: "จำนวนสินค้า"
+              },
+            },
+          ],
+          series: [
+            {
+              name: "จำนวนสินค้า",
+              color: "#00A498",
+              type: "column",
+              data: data[1],
+              tooltip: {
+                valueSuffix: " ชิ้น"
+              },
+              dataLabels: {
+                enabled: true
+              },
+            },
+          ],
+          tooltip: {
+            shared: true
+          },
+          legend: {
+            backgroundColor: "#FFF",
+            shadow: true
+
+          },
+          credits: {
+            enabled: false
+          },
+          noData: {
+            style: {
+              fontSize: "16px",
+            }
+          }
+        });
+      }
+
+      function setTableEvents(table) {
+        // listen for page clicks
+        table.on("page", () => {
+          draw = true;
+        });
+
+        // listen for updates and adjust the chart accordingly
+        table.on("draw", () => {
+          if (draw) {
+            draw = false;
+          } else {
+            const tableData = getTableData(table);
+            createHighcharts(tableData);
+          }
+        });
+      }

@@ -1,0 +1,205 @@
+extends ../Layout.pug
+
+block content
+    section
+        -function formatMoney(inum){  // ฟังก์ชันสำหรับแปลงค่าตัวเลขให้อยู่ในรูปแบบ เงิน
+            -var s_inum=new String(inum);
+            -var num2=s_inum.split(".");
+            -var n_inum="";
+            -if(num2[0]!=undefined){
+                -var l_inum=num2[0].length;
+                -for(i=0;i<l_inum;i++){
+                    -if(parseInt(l_inum-i)%3==0){
+                        -if(i==0){
+                            -n_inum+=s_inum.charAt(i);
+                        -}else{
+                            -n_inum+=","+s_inum.charAt(i);
+                        -}
+                    -}else{
+                        -n_inum+=s_inum.charAt(i);
+                    -}
+                -}
+            -}else{
+                -n_inum=inum;
+            -}
+            -if(num2[1]!=undefined){
+                -n_inum+="."+num2[1];
+            -}
+            -return n_inum;
+        -}
+        .container
+            .row
+                .col-lg-9
+                    h2.text-center="ตะกร้าสินค้า"
+                        .table-responsive
+                            table.table.align-middle
+                                thead
+                                    tr
+                                        td ลำดับที่
+                                        td
+                                        td ชื่อสินค้า
+                                        td ราคา
+                                        td จำนวน
+                                        td ราคารวม
+                                        td
+                                tbody
+                                    if cart.length === 0
+                                        td
+                                        td
+                                        td
+                                        td.h4.text-center.text-danger ยังไม่มีสินค้าในตะกร้า
+                                        td
+                                        td
+                                        td
+                                    else
+                                        each item,index in cart
+                                            -var quantity = item.quantity;
+                                            -var name = item.ProductName;
+                                            -var unitPrice = item.ProductPrice;
+                                            -var productTotal = item.productTotal;
+                                            -var id = item.ProductId;
+                                            tr
+                                                td  
+                                                    span=index+1
+                                                td
+                                                    a(href=productLink)
+                                                        img(src='/Img/Product/' + item.Image, alt=name width=100 height=100)
+                                                td(align="left")
+                                                    if item.ProductName.length > 45
+                                                        span.h4
+                                                            a.nav-link.text-decoration-none(href='/Product/'+item.CategoryName+'/'+item.ProductId+'/'+item.ProductName)=item.ProductName.substring(0,25)+"..."
+                                                    else 
+                                                        span.h4
+                                                            a.nav-link.text-decoration-none(href='/Product/'+item.CategoryName+'/'+item.ProductId+'/'+item.ProductName)=item.ProductName
+                                                td
+                                                    span= unitPrice+' บาท' 
+                                                td
+                                                    form(action='/Cart/' + id + '/update', method='POST')
+                                                        input(type='number' name=id, value=quantity, autocomplete='off', size='2' max=item.ProductQuantity required)                                              
+                                                td
+                                                    span=productTotal+" บาท"
+                                                td
+                                                    form(action='/Cart/' + id + '/delete', method='POST')
+                                                        button.btn.btn-success.text-white(type='submit')
+                                                            i.bi.bi-trash
+                .col-lg-3
+                    p.h2.text-center="สรุปการสั่งซื้อ"
+                    if (summary != null && summary.totalQuantity!=0)
+                        tr
+                            td(colspan='4')
+                            td(colspan='2')
+                                table.table-borderless.align-middle
+                                    thead
+                                        tr.cart_menu
+
+                                    tbody
+                                        tr
+                                            td ราคารวม
+                                            td(align="right")=formatMoney(summary.subTotal)
+                                            td='\u00a0'+'\u00a0'+"\tบาท"
+
+                        if ProQuan 
+                            div(class="alert alert-danger text-white" role="alert" style="background-color:#FF322C;")=ProQuan
+                                a.h4.text-warning(href='/Cart') กรุณาคลิกที่นี่
+
+                        else 
+                            if ShowB !=''
+                                //a.btn.btn-success.form-control(href="/Checked") ยืสั่งซื้อสินค้า
+                            else
+                                a.btn.btn-danger.form-control(href="/Cart/Checked") ตรวจสอบ
+    .container
+        .row(class="d-flex justify-content-between")
+            hr
+            h4(class="text-center") ที่อยู่ในการจัดส่ง
+            hr
+            .col-sm-8
+                section(class="container") 
+                h4(class="text-center") ที่อยู่
+                    .row.row-col-3
+                        if addresses
+                            each address in addresses
+                                .col-sm-4
+                                    br
+                                    h5=address.FName+"\t"+address.LName
+                                    p
+                                        span= address.Address
+                                        br
+                                        span= "แขวง"+address.TambonsNameTh+"\t"+address.AmphuresNameTh
+                                        br
+                                        span= address.ProvincesNameTh+"\t"+address.zip_code
+                                        br
+                                        span= "โทร."+address.Tel
+                                        br
+                                        form(action='/Checked/Delivery/' + address.AddressId, method='POST')
+                                            button.btn.btn-success(type='submit') ใช้ที่อยู่นี้ในการจัดส่ง
+            .col-sm-4
+                h4(class="text-center") ใช้ที่อยู่ใหม่
+                form(action='/Checked/Delivery/New', method='POST')
+                    div(class="text-left formfield")
+                        label(for='FName') ชื่อ :
+                        input.form-control.form-control-sm(type='text', id='FName', name='FName', placeholder='ชื่อ' required=true)
+                        label(for='LName') นามสกุล :
+                        input.form-control.form-control-sm(type='text', id='LName', name='LName', placeholder='นามสกุล' required=true)
+                        label(for='Tel') เบอร์โทร :
+                        input.form-control.form-control-sm(type='Tel', id='Tel', name='Tel', placeholder='0XXXXXXXX' Title="กรุณากรอกเบอร์โทรศัพท์ เช่น 0123456789"  pattern="[0-9]{10}" required=true)
+                        label(for="Address" ) ที่อยู่ : 
+                        textarea.form-control(id='Address' cols="25" rows="3" name='Address' placeholder='บ้านเลขที่ / ซอย / ถนน' required=true)
+                        label(for="Provinces") จังหวัด : 
+                        select.form-control.form-control-sm(name="Province" id="Province" onChange="ChooseProvinces(this)" required=true)
+                            option(value=0)|---เลือกจังหวัด---
+                            each province in provinces
+                                option(value=province.ProvincesId name="Province")=province.ProvincesNameTh
+                        label(for="Amphure") อำเภอ : 
+                        select.form-control.form-control-sm(name="Amphure" class="Amphure" id="Amphure" onChange="ChooseAmphures(this)" required=true) 
+                            option(value=0)|---เลือกอำเภอ---
+                        label(for="Tambon") ตำบล  : 
+                        select.form-control.form-control-sm(name="Tambon" class="Tambon" id="Tambon" required=true)
+                            option(value=0)|---เลือกตำบล--- 
+                        label(for="Zipcode") รหัสไปรษณีย์  : 
+                        input.form-control.form-control-sm(type="text" id="Zipcode" name="zip_code" readonly required=true)
+                        hr
+                        button(class="btn btn-danger text-center" onclick="Clear()" type="reset") เคลียร์ฟิลด์จังหวัด
+                        button(class="btn btn-dark text-center" type="submit") ใช้ที่อยู่ใหม่
+
+                      
+                                        
+    script(src='https://code.jquery.com/jquery-3.6.0.min.js')
+    script(src="/Js/bootstrap-input-spinner.js")
+    script.
+        $("input[type='number']").inputSpinner();
+        function ChooseProvinces(province){
+            fetch('/Checked/Delivery/Add/'+province.value)
+            .then(res=> res.json())
+            .then(data =>{
+                const Amphure= document.getElementById("Amphure");
+                Amphure.innerHTML='<option value="0">---เลือกอำเภอ---</option>';
+                const Tambon= document.getElementById("Tambon");
+                Tambon.innerHTML='<option value="0">---เลือกตำบล---</option>';
+                const ZipCode=document.getElementById("Zipcode");
+                document.getElementById("Zipcode").value='';
+                data.forEach(value=>{
+                    var option=document.createElement('option');
+                    option.value=value.AmphuresId
+                    option.text=value.AmphuresNameTh
+                    Amphure.appendChild(option);
+                })
+            });
+        }
+        function ChooseAmphures(Amphure){
+            var province=document.getElementById("Province").value;
+            fetch('/Checked/Delivery/Add/'+province+'/'+Amphure.value)
+            .then(res=> res.json())
+            .then(data =>{
+                const Tambon= document.getElementById("Tambon");
+                Tambon.innerHTML='<option value="0">---เลือกตำบล---</option>';
+                const ZipCode=document.getElementById("Zipcode");
+                ZipCode.value="";
+                data.forEach(value=>{
+                    var option=document.createElement('option');
+                    option.value=value.TambonsId
+                    option.text=value.TambonsNameTh
+                    ZipCode.value=value.zip_code
+                    Tambon.appendChild(option);
+                })
+            });
+        }

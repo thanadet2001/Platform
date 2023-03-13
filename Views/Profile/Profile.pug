@@ -1,0 +1,51 @@
+extends Info.pug
+
+block details
+    .row
+        h4 ข้อมูลส่วนตัว
+        .col-sm-9(style="overflow-x:auto;")
+            .table
+                table.table.table-condensed
+                    tbody
+                        tr
+                            td ชื่อบัญชีผู้ใช้ : 
+                            td=customer.Username
+                            td
+                        tr
+                            td อีเมล :
+                            td=customer.Email
+                            td
+                                form(action="/AccUser/"+customer.Username+"/Edit", method="GET")
+                                    button(class="btn btn-dark text-center mt-2" type="submit")
+                                        i(class="bi bi-pencil-square")
+                                        ="แก้ไขข้อมูล"
+                        tr 
+                            if customer.Password
+                                -var pass="YourPassword"
+                                td รหัสผ่าน : 
+                                td(class="hidetext")=pass
+                                td
+                                    button(class="btn btn-dark text-center mt-2" type='submit' data-bs-toggle="modal" data-bs-target="#Confirm1")
+                                        i(class="bi bi-key-fill")
+                                        ="เปลี่ยนรหัสผ่าน"
+                                    form(action="/AccUser/"+customer.Username+"/Repassword", method="POST")
+                                        .modal.fade(id="Confirm1" tabindex='-1', data-backdrop="static" aria-labelledby="staticBackdropLabel" aria-hidden='true')
+                                            .modal-dialog.modal-dialog-centered
+                                                .modal-content
+                                                    .modal-header
+                                                        h5#EditCategoryLabel.modal-title.text-danger="ยืนยันการเปลี่ยนรหัสผ่าน"
+                                                        button.btn-close(type='button', data-bs-dismiss='modal', aria-label='Close')
+                                                    .modal-body
+                                                        label รหัสผ่านเดิม
+                                                        input(type="password" class="form-control" name='currentPassword' maxlength=12 placeholder="รหัสผ่าน" minlength=6 title="ใส่รหัสผ่านอย่างน้อย6ตัว" required=true)
+                                                        label รหัสผ่านใหม่
+                                                        input(type="password" class="form-control" name='newPassword' maxlength=12 placeholder="รหัสผ่าน" minlength=6 title="ใส่รหัสผ่านอย่างน้อย6ตัว" required=true)
+                                                        label รหัสผ่านใหม่อีกครั้ง
+                                                        input(type="password" class="form-control" name='repeatPassword' maxlength=12 placeholder="รหัสผ่าน" minlength=6 title="ใส่รหัสผ่านอย่างน้อย6ตัว" required=true)
+                                                    .modal-footer
+                                                        button.btn.btn-secondary(type='button', data-bs-dismiss='modal') ปิด
+                                                        button.btn.btn-dark(type='submit' style="color : white;") ยืนยันการเปลี่ยนรหัสผ่าน
+                            if CheckedPass
+                                div(class="alert alert-danger py-3" role="alert")=CheckedPass
+            tfoot 
+               

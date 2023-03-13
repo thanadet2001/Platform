@@ -1,0 +1,114 @@
+extends ../Layout.pug
+
+block content
+    -var TotalProduct=0
+    section
+        -function formatMoney(inum){  // ฟังก์ชันสำหรับแปลงค่าตัวเลขให้อยู่ในรูปแบบ เงิน
+            -var s_inum=new String(inum);
+            -var num2=s_inum.split(".");
+            -var n_inum="";
+            -if(num2[0]!=undefined){
+                -var l_inum=num2[0].length;
+                -for(i=0;i<l_inum;i++){
+                    -if(parseInt(l_inum-i)%3==0){
+                        -if(i==0){
+                            -n_inum+=s_inum.charAt(i);
+                        -}else{
+                            -n_inum+=","+s_inum.charAt(i);
+                        -}
+                    -}else{
+                        -n_inum+=s_inum.charAt(i);
+                    -}
+                -}
+            -}else{
+                -n_inum=inum;
+            -}
+            -if(num2[1]!=undefined){
+                -n_inum+="."+num2[1];
+            -}
+            -return n_inum;
+        -}
+        .container
+            .review-payment
+                h2= title
+            .row
+                .col-sm-8
+                    .table-responsive.cart_info
+                        table.table.table-condensed
+                            thead
+                                tr.cart_menu
+                                    td.image
+                                    td.description ชื่อสินค้า
+                                    td.price ราคาต่อหน่วย
+                                    td.quantity จำนวน
+                                    td.total ราคารวม
+                            tbody
+                                each product in products
+                                    -var quantity = product.Quantity;
+                                    -var name = product.ProductName;
+                                    -var unitPrice = product.Price;
+                                    -var productTotal = product.TotalPrice;
+                                    -TotalProduct+=productTotal;
+                                    tr
+                                        td.cart_product
+                                            a(href=productLink)
+                                                img(src='/Img/Product/' + product.productImg, alt=name width=100 height=100)
+                                        td(align="left")
+                                            if product.ProductName.length > 45
+                                                span.h4
+                                                    a.nav-link.text-decoration-none(href='/Product/'+product.CategoryName+'/'+product.ProductId+'/'+product.ProductName)=product.ProductName.substring(0,25)+"..."
+                                            else 
+                                                span.h4
+                                                    a.nav-link.text-decoration-none(href='/Product/'+product.CategoryName+'/'+product.ProductId+'/'+product.ProductName)=product.ProductName
+                                        td
+                                            span=unitPrice+' บาท' 
+                                        td
+                                            span=quantity
+                                        td
+                                            span=productTotal+' บาท' 
+
+                .col-sm-4
+                    .table-responsive.cart_info
+                        table.table.table-condensed.dev-table
+                            thead
+                                tr.cart_menu
+                                    td(colspan=2) ที่อยู่ในการจัดส่ง
+
+                            tbody
+                                tr
+                                    td ชื่อ-นามสกุล
+                                    td= order.FName+" \t"+order.LName
+                                tr
+                                    td ที่อยู่
+                                    td= order.Address
+                                tr
+                                    td 
+                                    td="แขวง"+order.TambonsNameTh+'\u00a0'+'\u00a0'+order.AmphuresNameTh
+                                tr
+                                    td
+                                    td=order.ProvincesNameTh+'\u00a0'+'\u00a0'+order.zip_code
+                                tr
+                                    td โทร.
+                                    td=order.Tel
+
+                    .table-responsive.cart_info
+                        table.table.table-condensed.dev-table
+                            thead
+                                tr.cart_menu
+                                    td(colspan=4) สรุปการสั่งซื้อ
+
+                            tbody
+                                tr
+                                    td ราคารวม
+                                    td(align="right")=formatMoney(TotalProduct)
+                                    td='\u00a0'+'\u00a0'+"\tบาท"
+                                tr
+                                    td ค่าขนส่ง
+                                    td(align="right")=order.Dropship
+                                    td='\u00a0'+'\u00a0'+"\tบาท"
+                                tr
+                                    td รวมทั้งหมด
+                                    td(align="right")=formatMoney(parseFloat(order.NetPrice*1+parseInt(order.Dropship)).toFixed(2))
+                                    td='\u00a0'+'\u00a0'+"\tบาท"
+
+    // /#cart_items

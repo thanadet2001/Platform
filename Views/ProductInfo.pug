@@ -1,0 +1,129 @@
+extends layout.pug
+
+block content
+    section.bg-light
+        .container.pb-5
+            .row
+                .col-lg-5.mt-5
+                    .card.mb-3
+                        img.card-img.img-fluid#product-detail(src="/Img/Product/"+product.productImg)
+                    .row
+                        // Start Controls
+                        .col-1.align-self-center
+                            a(href='#multi-item-example', role='button', data-bs-slide='prev')
+                                i.text-dark.fas.fa-chevron-left
+                                span.sr-only Previous
+                        // End Controls
+                        // Start Carousel Wrapper
+                        #multi-item-example.col-10.carousel.slide.carousel-multi-item(data-bs-ride='carousel')
+                            // Start Slides
+                            .carousel-inner.product-links-wap(role='listbox')
+                                // First slide
+                                .carousel-item.active
+                                    .row
+                                        if product.productImg !=  null && product.productImg != 'undefined'
+                                            .col-4
+                                                a(href='#')
+                                                    img.card-img.img-fluid(src="/Img/Product/"+product.productImg)
+                                        if product.productImg1 !=  null && product.productImg1 !='undefined'
+                                            .col-4
+                                                a(href='#')
+                                                    img.card-img.img-fluid(src="/Img/Product/"+product.productImg1)
+                                        if product.productImg2 !=  null && product.productImg2 !='undefined'
+                                            .col-4
+                                                a(href='#')
+                                                    img.card-img.img-fluid(src="/Img/Product/"+product.productImg2)
+                                        
+                                // /.First slide
+                                // Second slide
+                                if product.productImg3 !=  null && product.productImg3 !='undefined'
+                                    .carousel-item
+                                        .row
+                                            if product.productImg3 !=  null && product.productImg3 != 'undefined'
+                                                .col-4
+                                                    a(href='#')
+                                                        img.card-img.img-fluid(src="/Img/Product/"+product.productImg3)
+                                            if product.productImg4 !=  null && product.productImg4 != 'undefined' 
+                                                .col-4
+                                                    a(href='#')
+                                                        img.card-img.img-fluid(src="/Img/Product/"+product.productImg4)
+
+                        .col-1.align-self-center
+                            a(href='#multi-item-example', role='button', data-bs-slide='next')
+                                i.text-dark.fas.fa-chevron-right
+                                span.sr-only Next
+                        // End Controls
+                    // col end
+                .col-lg-7.mt-5
+                    .card
+                        .card-body
+                            h1.h2=product.ProductName
+                            ul.list-inline
+                                li.list-inline-item
+                                    h6 หมวดหมู่:
+                                li.list-inline-item
+                                    p.text-muted
+                                    strong=product.CategoryName
+                                li.list-inline-item
+                                    h6 แบรนด์:
+                                li.list-inline-item
+                                    p.text-muted
+                                    strong=product.BrandName
+                            h6 รายละเอียดสินค้า:
+                            p=product.ProductInfo
+                            ul.list-inline
+                                li.list-inline-item
+                                    h6 ราคาสินค้า :
+                                li.list-inline-item
+                                    p.text-muted
+                                    strong=product.ProductPrice
+                                li.list-inline-item
+                                    h6 สินค้าคงเหลือ :
+                                li.list-inline-item
+                                    p.text-muted
+                                    strong=product.ProductQuantity
+                            if product.ProductQuantity !=0
+                                if(customer)
+                                    if(customer.UserStatus==0)
+                                        
+                                        form(action='/Cart/' + product.ProductId + '/add', method='POST')
+                                            .row
+                                                .col-auto
+                                                    ul.list-inline.pb-3
+                                                        li.list-inline-item.text-right
+                                                            //input(type='number' name="quantity" max=product.ProductQuantity min="1" value=1)
+                                                .row.pb-3
+                                                    .col.d-grid
+                                                        button.btn.btn-success.btn-lg(type='submit') เพิ่มสินค้าลงตะกร้า
+                                    else 
+                                        .row
+                                            .col-auto
+                                                ul.list-inline.pb-3
+                                                    li.list-inline-item.text-right
+                                                        //input(type='number' name="quantity" max=product.ProductQuantity min="1" value=1)
+                                            .row.pb-3
+                                                .col.d-grid
+                                                    button.btn.btn-danger.btn-lg(disabled) สำหรับสมาชิกทั่วไปเท่านั้น
+                                else 
+                                    .row
+                                        .col-auto
+                                            ul.list-inline.pb-3
+                                                li.list-inline-item.text-right
+                                                    //input(type='number' name="quantity" max=product.ProductQuantity min="1" value=1)
+                                        .row.pb-3
+                                            .col.d-grid
+                                                a.btn.btn-warning.btn-lg(href="/SignIn") กรุณาเข้าสุ่ระบบ
+                            else 
+                                .row
+                                    .col-auto
+                                        ul.list-inline.pb-3
+                                            li.list-inline-item.text-right
+                                                //input(type='number' name="quantity" max=product.ProductQuantity min="1" value=1)
+                                    .row.pb-3
+                                        .col.d-grid
+                                            button.btn.btn-danger.btn-lg(disabled) สินค้าหมด
+                                    
+    script(src='https://code.jquery.com/jquery-3.6.0.min.js')
+    script(src="/Js/bootstrap-input-spinnerproduct.js")
+    script.
+        $("input[type='number']").inputSpinner();

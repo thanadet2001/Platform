@@ -1,0 +1,117 @@
+extends layout
+
+block content
+    section
+        -function formatMoney(inum){  // ฟังก์ชันสำหรับแปลงค่าตัวเลขให้อยู่ในรูปแบบ เงิน
+            -var s_inum=new String(inum);
+            -var num2=s_inum.split(".");
+            -var n_inum="";
+            -if(num2[0]!=undefined){
+                -var l_inum=num2[0].length;
+                -for(i=0;i<l_inum;i++){
+                    -if(parseInt(l_inum-i)%3==0){
+                        -if(i==0){
+                            -n_inum+=s_inum.charAt(i);
+                        -}else{
+                            -n_inum+=","+s_inum.charAt(i);
+                        -}
+                    -}else{
+                        -n_inum+=s_inum.charAt(i);
+                    -}
+                -}
+            -}else{
+                -n_inum=inum;
+            -}
+            -if(num2[1]!=undefined){
+                -n_inum+="."+num2[1];
+            -}
+            -return n_inum;
+        -}
+        .container
+            .row
+                .col-lg-9
+                    h2.text-center="ตะกร้าสินค้า"
+                        .table-responsive
+                            table.table.align-middle
+                                thead
+                                    tr
+                                        td ลำดับที่
+                                        td
+                                        td ชื่อสินค้า
+                                        td ราคา
+                                        td จำนวน
+                                        td ราคารวม
+                                        td
+                                tbody
+                                    if cart.length === 0
+                                        td
+                                        td
+                                        td
+                                        td.h4.text-center.text-danger ยังไม่มีสินค้าในตะกร้า
+                                        td
+                                        td
+                                        td
+                                    else
+                                        each item,index in cart
+                                            -var quantity = item.quantity;
+                                            -var name = item.ProductName;
+                                            -var unitPrice = item.ProductPrice;
+                                            -var productTotal = item.productTotal;
+                                            -var id = item.ProductId;
+                                            tr
+                                                td  
+                                                    span=index+1
+                                                td
+                                                    a(href=productLink)
+                                                        img(src='/Img/Product/' + item.Image, alt=name width=100 height=100)
+                                                td(align="left")
+                                                    if item.ProductName.length > 45
+                                                        span.h4
+                                                            a.nav-link.text-decoration-none(href='/Product/'+item.CategoryName+'/'+item.ProductId+'/'+item.ProductName)=item.ProductName.substring(0,25)+"..."
+                                                    else 
+                                                        span.h4
+                                                            a.nav-link.text-decoration-none(href='/Product/'+item.CategoryName+'/'+item.ProductId+'/'+item.ProductName)=item.ProductName
+                                                td
+                                                    span= unitPrice+' บาท' 
+                                                td
+                                                    form(action='/Cart/' + id + '/update', method='POST')
+                                                        input(type='number' name=id, value=quantity, autocomplete='off', size='2' max=item.ProductQuantity required)                                              
+                                                td
+                                                    span=formatMoney(productTotal)+" บาท"
+                                                td
+                                                    form(action='/Cart/' + id + '/delete', method='POST')
+                                                        button.btn.btn-success.text-white(type='submit')
+                                                            i.bi.bi-trash
+                .col-lg-3
+                    p.h2.text-center="สรุปการสั่งซื้อ"
+                    if (summary != null && summary.totalQuantity!=0)
+                        tr
+                            td(colspan='4')
+                            td(colspan='2')
+                                table.table-borderless.align-middle
+                                    thead
+                                        tr.cart_menu
+
+                                    tbody
+                                        tr
+                                            td ราคารวม
+                                            td(align="right")=formatMoney(summary.subTotal)
+                                            td='\u00a0'+'\u00a0'+"\tบาท"
+
+                        if ProQuan !=''
+                            div(class="alert alert-danger text-white" role="alert" style="background-color:#FF322C;")=ProQuan
+                                a.h4.text-warning(href='/Cart') กรุณาคลิกที่นี่
+
+                        else 
+                            if ShowB !=''
+                                a.btn.btn-success.form-control(href="/Checked") สั่งซื้อสินค้า
+                            else
+                                a.btn.btn-danger.form-control(href="/Cart/Checked") ตรวจสอบสินค้าในตะกร้า
+                        
+
+                                            
+                                        
+    script(src='https://code.jquery.com/jquery-3.6.0.min.js')
+    script(src="/Js/bootstrap-input-spinner.js")
+    script.
+        $("input[type='number']").inputSpinner();
