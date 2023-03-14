@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 // database module
-var database = require('../config/database');
+var database = require('../Config/Database');
 const { Sequelize } = require('sequelize');
 function isLoggedIn(req, res, next) {
 
